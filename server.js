@@ -461,25 +461,25 @@ app.post('/api/login', async (req, res) => {
 
         const user = await User.findOne({ email });
         if (!user) {
-            return res.status(400).json({ message: "❌ User not found" });
+            return res.status(400).json({ message: " User not found" });
         }
 
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) {
-            return res.status(400).json({ message: "❌ Invalid password" });
+            return res.status(400).json({ message: " Invalid password" });
         }
 
         // Generate a JWT token
         const token = jwt.sign({ userId: user._id }, "your_jwt_secret", { expiresIn: "1h" });
 
         res.status(200).json({ 
-            message: "✅ Login successful", 
+            message: "Login successful", 
             user,
             token
         });
     } catch (error) {
-        console.error("❌ Error during login:", error);
-        res.status(500).json({ message: "❌ Server error" });
+        console.error("Error during login:", error);
+        res.status(500).json({ message: " Server error" });
     }
 });
 
@@ -581,7 +581,7 @@ app.post('/api/travel', async (req, res) => {
             destination: destination,
             startDate: { $lte: end },
             endDate: { $gte: start }
-        }).populate('userId', 'email'); // ✅ Fetch user email only
+        }).populate('userId', 'email'); //  Fetch user email only
 
         if (match) {
             const partnerDetails = {
@@ -590,20 +590,20 @@ app.post('/api/travel', async (req, res) => {
                 endDate: match.endDate,
                 duration: match.duration,
                 description: match.description,
-                email: match.userId.email  // ✅ Include the email from populated user
+                email: match.userId.email  // Include the email from populated user
             };
 
             res.status(200).json({
                 success: true,
-                message: "✅ Travel partner found!",
+                message: "Travel partner found!",
                 partnerDetails
             });
         } else {
-            res.status(404).json({ success: false, message: "❌ No matching partner found." });
+            res.status(404).json({ success: false, message: " No matching partner found." });
         }
     } catch (error) {
-        console.error("❌ Error finding partner:", error);
-        res.status(500).json({ success: false, message: "❌ Server error." });
+        console.error(" Error finding partner:", error);
+        res.status(500).json({ success: false, message: " Server error." });
     }
 });
 
@@ -614,7 +614,7 @@ app.post('/api/get-partners', async (req, res) => {
         const start = new Date(startDate);
         const end = new Date(endDate);
 
-        // ✅ Get all travel plans that overlap the date range
+        //  Get all travel plans that overlap the date range
         const matches = await TravelPlan.find({
             destination: destination,
             startDate: { $lte: end },
@@ -637,8 +637,8 @@ app.post('/api/get-partners', async (req, res) => {
 
         res.status(200).json(partners);
     } catch (error) {
-        console.error("❌ Error fetching partners:", error);
-        res.status(500).json({ message: "❌ Server error while getting partners." });
+        console.error(" Error fetching partners:", error);
+        res.status(500).json({ message: " Server error while getting partners." });
     }
 });
 
@@ -673,7 +673,7 @@ app.post('/api/travel', async (req, res) => {
         const start = new Date(startDate);
         const end = new Date(endDate);
 
-        // ✅ Search for a partner whose travel dates overlap
+        // Search for a partner whose travel dates overlap
         const match = await TravelPlan.findOne({
             destination: destination,
             startDate: { $lte: end },
@@ -683,15 +683,15 @@ app.post('/api/travel', async (req, res) => {
         if (match) {
             res.status(200).json({
                 success: true,
-                message: "✅ Travel partner found!",
+                message: "Travel partner found!",
                 partnerDetails: match
             });
         } else {
-            res.status(404).json({ success: false, message: "❌ No matching partner found." });
+            res.status(404).json({ success: false, message: "No matching partner found." });
         }
     } catch (error) {
-        console.error("❌ Error finding partner:", error);
-        res.status(500).json({ success: false, message: "❌ Server error." });
+        console.error("Error finding partner:", error);
+        res.status(500).json({ success: false, message: "Server error." });
     }
 });
 
