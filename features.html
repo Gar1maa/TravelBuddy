@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Features | TravelBuddy</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        background-image: url('fea.jpeg');
+        background-size: cover;
+        background-position: center center;
+        color: #333;
+        position: relative;
+        min-height: 100vh;
+      }
+
+      /* Semi-transparent overlay for better text visibility */
+      body::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.3); /* dark overlay with more transparency */
+        z-index: 0; /* overlay stays behind content */
+      }
+
+      nav {
+        background-color: rgba(0, 0, 0, 0.7);
+        padding: 20px;
+        text-align: center;
+        position: relative;
+        z-index: 1; /* ensure nav bar is above the overlay */
+      }
+
+      nav a {
+        color: white;
+        text-decoration: none;
+        font-size: 18px;
+        margin: 0 20px;
+        text-transform: uppercase;
+      }
+
+      nav a:hover {
+        color: #4CAF50;
+      }
+
+      .container {
+        width: 80%;
+        max-width: 1200px;
+        margin: 50px auto;
+        background-color: rgba(255, 255, 255, 0.7); /* Slightly more transparent white background */
+        padding: 40px;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        position: relative;
+        z-index: 1; /* ensure content stays above overlay */
+      }
+
+      .header {
+        text-align: center;
+        margin-bottom: 30px;
+      }
+
+      .header h1 {
+        font-size: 3rem;
+        color: #333;
+      }
+
+      .header p {
+        font-size: 1.1rem;
+        color: #666;
+        margin-top: 10px;
+      }
+
+      .content h2 {
+        font-size: 2.5rem;
+        color: #333;
+        margin-bottom: 20px;
+      }
+
+      .content ul {
+        list-style-type: none;
+        padding: 0;
+      }
+
+      .content li {
+        font-size: 1.1rem;
+        color: #555;
+        margin-bottom: 15px;
+      }
+
+      .content li strong {
+        font-weight: bold;
+        color: #4CAF50;
+      }
+
+      footer {
+        background-color: #333;
+        color: white;
+        text-align: center;
+        padding: 20px;
+        margin-top: 40px;
+      }
+
+      footer a {
+        color: #4CAF50;
+        text-decoration: none;
+      }
+    </style>
+  </head>
+  <body>
+
+    <!-- Navigation Bar -->
+    <nav>
+      <a href="dash.html">Home</a>
+      <a href="features.html">Features</a>
+      <a href="about.html">About Us</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+
+    <!-- Main Content Container -->
+    <div class="container">
+      <div class="header">
+        <h1>Features of TravelBuddy</h1>
+        <p>Your Perfect Travel Companion Awaits</p>
+      </div>
+
+      <div class="content">
+        <h2>Find Your Perfect Travel Companion Based on Your Preferences</h2>
+        <p>
+          TravelBuddy offers a range of features to help you connect with the right travel companion who fits your style, interests, and goals. 
+          Here are some of the features that make us stand out:
+        </p>
+
+        <h2>Key Features:</h2>
+        <ul>
+          <li>
+            <strong>Customizable Travel Preferences:</strong> Filter by dates,location and activity level to find a travel buddy who matches your preferences.
+          </li>
+          <li>
+            <strong>Detailed Traveler Profiles:</strong> View detailed profiles showcasing travel goals, starting dates ,ending dates to help you find the perfect match.
+          </li>
+          <li>
+            <strong>Search and Match System:</strong> Use our advanced search feature and matchmaking algorithm to easily find companions who meet your travel needs.
+          </li>
+          <li>
+            <strong>Message and Connect:</strong> Once you find a match, chat with them through our in-platform messaging system to discuss your plans before traveling together.
+          </li>
+          <li>
+            <strong>Trip Planning Tools:</strong> Plan your trip with your travel buddy with travel details to make the experience more fun and organized.
+          </li>
+          <li>
+            <strong>Safety and Security:</strong> Our platform verifies profiles and offers secure messaging to ensure a safe environment for users to connect.
+          </li>
+          <li>
+            <strong>Global Reach:</strong> Find travel companions from around the world and expand your network with people from different cultures and backgrounds.
+          </li>
+          <li>
+            <strong>Travel Buddies for Any Trip:</strong> Whether it’s a weekend getaway or a world tour, you can find travel buddies for all types of trips, big or small.
+          </li>
+        </ul>
+
+        <h2>Why Choose TravelBuddy?</h2>
+        <p>
+          TravelBuddy is not just about finding a travel partner; it's about creating unforgettable travel experiences with people who share your passions. Our platform is designed to match you with the perfect travel buddy, ensuring your trips are as enjoyable, safe, and memorable as possible.
+        </p>
+        <p>
+          Whether you're embarking on a solo adventure or planning a long-term journey, TravelBuddy helps you find like-minded travelers who complement your journey. Sign up today to start your adventure!
+        </p>
+      </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      <p>&copy; 2025 TravelBuddy | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+    </footer>
+
+  </body>
+</html>

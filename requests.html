@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Requests</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f4f4f9;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        
+        .requests-container {
+            width: 450px;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+            padding: 25px;
+            text-align: center;
+        }
+        
+        h2 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #333;
+        }
+        
+        .request-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #fafafa;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.05);
+            margin-bottom: 12px;
+            transition: transform 0.2s ease-in-out;
+        }
+        
+        .request-item:hover {
+            transform: scale(1.02);
+        }
+        
+        .profile-pic {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 15px;
+            border: 3px solid #4CAF50;
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+            flex-grow: 1;
+            text-align: left;
+        }
+        
+        .user-details {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .user-details span {
+            font-weight: bold;
+            font-size: 16px;
+            color: #333;
+        }
+
+        .travel-details {
+            font-size: 14px;
+            color: #666;
+            margin-top: 3px;
+        }
+
+        .btn {
+            padding: 7px 12px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 14px;
+            color: white;
+            transition: background 0.2s ease-in-out;
+        }
+
+        .btn.accept {
+            background-color: #4CAF50;
+        }
+        
+        .btn.reject {
+            background-color: #d9534f;
+        }
+        
+        .btn.accept:hover {
+            background-color: #45a049;
+        }
+
+        .btn.reject:hover {
+            background-color: #c9302c;
+        }
+        
+        .no-requests {
+            color: #777;
+            font-size: 16px;
+            margin-top: 15px;
+            display: none;
+        }
+    </style>
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+</head>
+<body>
+
+    <div class="requests-container">
+        <h2>Travel Partner Requests</h2>
+        <div id="requestsList"></div>
+        <p id="noRequestsMessage" class="no-requests">No pending requests.</p>
+    </div>
+    <script>
+        const socket = io('http://localhost:3100');
+    
+        document.addEventListener('DOMContentLoaded', async () => {
+            const user = JSON.parse(localStorage.getItem("user"));
+            if (!user) {
+                alert("Please log in to view requests.");
+                window.location.href = "login.html";
+                return;
+            }
+    
+            // Connect user to the Socket.IO server
+            socket.emit('join', user.email);
+    
+            try {
+                const res = await fetch(`http://localhost:3100/api/received-requests/${user.email}`);
+                const requests = await res.json();
+    
+                const list = document.getElementById("requestsList");
+                list.innerHTML = "";
+    
+                if (requests.length === 0) {
+                    document.getElementById("noRequestsMessage").style.display = "block";
+                    return;
+                }
+    
+                requests.forEach(req => {
+                    const { _id, senderId, travelPlan } = req;
+                    const profilePic = senderId.profilePic || "images/default-avatar.png"; 
+    
+                    const item = document.createElement("div");
+                    item.classList.add("request-item");
+                    item.setAttribute("data-id", _id);
+    
+                    item.innerHTML = `
+                        <div class="user-info">
+                            <img src="${profilePic}" class="profile-pic" alt="User">
+                            <div class="user-details">
+                                <span>${senderId.firstName} ${senderId.lastName}</span>
+                                <p class="travel-details">
+                                    <strong>Destination:</strong> ${travelPlan?.destination || 'N/A'}<br>
+                                    <strong>From:</strong> ${travelPlan?.startDate ? new Date(travelPlan.startDate).toDateString() : 'N/A'}<br>
+                                    <strong>To:</strong> ${travelPlan?.endDate ? new Date(travelPlan.endDate).toDateString() : 'N/A'}
+                                </p>
+                            </div>
+                        </div>
+                        <div>
+                            <button class="btn accept" onclick="handleRequest(this, true)">Accept</button>
+                            <button class="btn reject" onclick="handleRequest(this, false)">Reject</button>
+                        </div>
+                    `;
+    
+                    list.appendChild(item);
+                });
+            } catch (err) {
+                console.error("Error loading requests:", err);
+                alert("Failed to load requests.");
+            }
+        });
+    
+        async function handleRequest(button, accepted) {
+            const requestItem = button.closest(".request-item");
+            const requestId = requestItem.getAttribute("data-id");
+    
+            button.disabled = true; // Prevent multiple clicks
+    
+            try {
+                const res = await fetch(`http://localhost:3100/api/update-request/${requestId}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ status: accepted ? 'accepted' : 'rejected' })
+                });
+    
+                const data = await res.json();
+    
+                if (res.ok) {
+                    requestItem.remove();
+    
+                    const requestList = document.getElementById("requestsList");
+                    if (requestList.children.length === 0) {
+                        document.getElementById("noRequestsMessage").style.display = "block";
+                    }
+    
+                    // Notify the sender in real-time only if request was updated
+                    if (data.request && data.request.senderId.email) {
+                        socket.emit('requestStatusUpdate', { 
+                            senderEmail: data.request.senderId.email, 
+                            message: `Your request has been ${accepted ? 'accepted' : 'rejected'}.`
+                        });
+                    }
+    
+                    alert(data.message);
+                } else {
+                    alert("Failed to update request: " + data.error);
+                }
+            } catch (error) {
+                console.error("Error updating request:", error);
+                alert("Server error while updating request.");
+            } finally {
+                button.disabled = false; // Re-enable button in case of failure
+            }
+        }
+    
+        // Listen for real-time notifications
+        socket.on('requestStatusUpdate', (data) => {
+            const { partnerName, destination, status } = data;
+            alert(`Notification: ${partnerName} has ${status} your request for ${destination}.`);
+        });
+    </script>
+    
+    
+</body>
+</html>

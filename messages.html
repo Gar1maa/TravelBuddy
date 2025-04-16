@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Messages</title>
+    <script src="https://cdn.socket.io/4.0.1/socket.io.min.js"></script>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .messages-container {
+            background: #ffffff;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 500px;
+            text-align: center;
+        }
+        h2 {
+            margin-bottom: 20px;
+            color: #333;
+            font-size: 24px;
+        }
+        .message-list {
+            list-style: none;
+            padding: 0;
+            max-height: 350px;
+            overflow-y: auto;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background: #fefefe;
+        }
+        .message-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px;
+            border-bottom: 1px solid #eee;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        .message-item:hover {
+            background: #f1f1f1;
+        }
+        .profile-pic {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 12px;
+            object-fit: cover;
+            border: 1px solid #ccc;
+        }
+        .user-info {
+            display: flex;
+            align-items: center;
+            width: 100%;
+        }
+        .user-details {
+            text-align: left;
+        }
+        .message-user {
+            font-weight: bold;
+            color: #007BFF;
+            font-size: 16px;
+        }
+        .message-preview {
+            color: #666;
+            font-size: 14px;
+            margin-top: 2px;
+        }
+        .delete-btn {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .delete-btn:hover {
+            background: #c82333;
+        }
+    </style>
+</head>
+<body>
+    <div class="messages-container">
+        <h2>Messages</h2>
+        <ul id="messageList" class="message-list"></ul>
+    </div>
+    
+    <script>
+        const user = JSON.parse(localStorage.getItem("user"));
+        if (!user) {
+            alert("Please log in to view messages.");
+            window.location.href = "login.html";
+        }
+    
+        async function loadMessages() {
+            try {
+                const response = await fetch(`http://localhost:3100/api/messages/${user.email}`);
+                const messages = await response.json();
+                const messageList = document.getElementById('messageList');
+                messageList.innerHTML = '';
+    
+                if (messages.length === 0) {
+                    messageList.innerHTML = '<p>No messages found.</p>';
+                    return;
+                }
+    
+                const groupedMessages = {};
+                messages.forEach(msg => {
+                    const chatPartner = msg.sender === user.email ? msg.receiver : msg.sender;
+                    if (!msg.deletedForUser || msg.deletedForUser !== user.email) {
+                        groupedMessages[chatPartner] = msg.message;
+                    }
+                });
+    
+                for (const chatPartner of Object.keys(groupedMessages)) {
+                    const userDetails = await fetchUserDetails(chatPartner);
+                    const listItem = document.createElement('li');
+                    listItem.classList.add('message-item');
+                    listItem.innerHTML = `
+                        <div class="user-info">
+                            <img src="${userDetails.profilePic || 'images/default-avatar.png'}" class="profile-pic" alt="User">
+                            <div class="user-details">
+                                <span class="message-user">${userDetails.name}</span>
+                                <p class="message-preview">${groupedMessages[chatPartner]}</p>
+                            </div>
+                        </div>
+                        <button class="delete-btn" data-email="${chatPartner}">Delete</button>
+                    `;
+    
+                    listItem.addEventListener("click", (event) => {
+                        if (!event.target.classList.contains("delete-btn")) {
+                            localStorage.setItem("chatWith", chatPartner);
+                            window.location.href = "chat.html";
+                        }
+                    });
+    
+                    listItem.querySelector(".delete-btn").addEventListener("click", async (event) => {
+                        event.stopPropagation();
+                        deleteChat(chatPartner, listItem);
+                    });
+    
+                    messageList.appendChild(listItem);
+                }
+            } catch (error) {
+                console.error("Error loading messages:", error);
+            }
+        }
+    
+        async function deleteChat(chatPartner, listItem) {
+            if (!confirm(`Are you sure you want to delete your chat with ${chatPartner}?`)) return;
+    
+            try {
+                const response = await fetch("http://localhost:3100/api/messages/delete-chat", {
+                    method: "DELETE",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ userEmail: user.email, chatPartner })
+                });
+    
+                const data = await response.json();
+                if (data.success) {
+                    listItem.remove();
+                } else {
+                    alert("Failed to delete chat.");
+                }
+            } catch (error) {
+                console.error("Error deleting chat:", error);
+            }
+        }
+    
+        async function fetchUserDetails(email) {
+            try {
+                const res = await fetch(`http://localhost:3100/api/user/${email}`);
+                const data = await res.json();
+                return {
+                    name: `${data.firstName} ${data.lastName}`,
+                    profilePic: data.profilePic
+                };
+            } catch (error) {
+                console.error("Error fetching user details:", error);
+                return { name: email, profilePic: 'images/default-avatar.png' };
+            }
+        }
+    
+        loadMessages();
+    </script>    
+    
+</body>
+</html>

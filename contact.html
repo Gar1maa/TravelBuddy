@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact Us | TravelBuddy</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        background-image: url('fea.jpeg');
+        background-size: cover;
+        background-position: center center;
+        color: #333;
+        position: relative;
+        min-height: 100vh;
+      }
+
+      /* Semi-transparent overlay */
+      body::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.4);
+        z-index: 0;
+      }
+
+      /* Navigation bar styling */
+      nav {
+        position: fixed; /* Fix the navigation bar to the top */
+        top: 0;
+        left: 0;
+        width: 100%;
+        background-color: rgba(0, 0, 0, 0.6);
+        padding: 20px;
+        text-align: center;
+        z-index: 1; /* Ensures it stays above the content */
+      }
+
+      nav a {
+        color: white;
+        text-decoration: none;
+        font-size: 18px;
+        margin: 0 20px;
+        text-transform: uppercase;
+      }
+
+      nav a:hover {
+        color: #4CAF50;
+      }
+
+      .container {
+        position: relative;
+        z-index: 1;
+        width: 80%;
+        max-width: 1200px;
+        margin: 80px auto; /* Added top margin to prevent content from overlapping with the fixed navbar */
+        background-color: rgba(255, 255, 255, 0.8); /* Slightly transparent background */
+        padding: 40px;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      .header {
+        text-align: center;
+        margin-bottom: 30px;
+      }
+
+      .header h1 {
+        font-size: 3rem;
+        color: #333;
+      }
+
+      .header p {
+        font-size: 1.1rem;
+        color: #666;
+        margin-top: 10px;
+      }
+
+      .content h2 {
+        font-size: 2.5rem;
+        color: #333;
+        margin-bottom: 20px;
+      }
+
+      .content p {
+        font-size: 1.1rem;
+        color: #555;
+        line-height: 1.8;
+        margin-bottom: 20px;
+      }
+
+      .content ul {
+        list-style-type: none;
+        padding-left: 0;
+      }
+
+      .content li {
+        font-size: 1.1rem;
+        color: #555;
+        margin-bottom: 15px;
+      }
+
+      footer {
+        background-color: #333;
+        color: white;
+        text-align: center;
+        padding: 20px;
+        margin-top: 40px;
+      }
+
+      footer a {
+        color: #4CAF50;
+        text-decoration: none;
+      }
+    </style>
+  </head>
+  <body>
+
+    <!-- Navigation Bar -->
+    <nav>
+      <a href="dash.html">Home</a>
+      <a href="features.html">Features</a>
+      <a href="about.html">About Us</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+
+    <!-- Main Content Container -->
+    <div class="container">
+      <div class="header">
+        <h1>Contact Us</h1>
+        <p>We’re here to help you connect with your perfect travel buddy!</p>
+      </div>
+
+      <div class="content">
+        <h2>How can we help you?</h2>
+        <p>
+          Whether you have a question about our platform, need assistance with finding the perfect travel buddy, or just want to share your thoughts, we’re here to help!
+        </p>
+
+        <h2>Get in Touch:</h2>
+        <p>
+          Here’s how you can reach us:
+        </p>
+        <ul>
+          <li><strong>Email:</strong> <a href="mailto:support@travelbuddy.com">support@travelbuddy.com</a></li>
+          <li><strong>Phone:</strong> +91 1234567890</li>
+          <li><strong>Address:</strong> Banasthali Vidhyapith,Rajasthan 304022</li>
+        </ul>
+
+        <h2>Follow Us:</h2>
+        <ul>
+          <li><strong>Facebook:</strong> <a href="https://facebook.com/travelbuddy" target="_blank">TravelBuddy Facebook</a></li>
+          <li><strong>Instagram:</strong> <a href="https://instagram.com/travelbuddy" target="_blank">@TravelBuddy</a></li>
+          <li><strong>Twitter:</strong> <a href="https://twitter.com/travelbuddy" target="_blank">@TravelBuddy</a></li>
+        </ul>
+
+        <h2>Need Help Finding the Right Travel Buddy?</h2>
+        <p>
+          Our platform allows you to choose a travel partner based on your preferences such specific dates and travel goals. If you need help filtering and finding the right companion for your trip, reach out to us! We're happy to assist.
+        </p>
+      </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      <p>&copy; 2025 TravelBuddy | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+    </footer>
+
+  </body>
+</html>

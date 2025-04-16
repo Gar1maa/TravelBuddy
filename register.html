@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Buddy - Register</title>
+    <style>
+        /* Reset styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            height: 100vh;
+        }
+
+        header {
+            background-color: #4CAF50;
+            width: 100%;
+            padding: 20px 0;
+            text-align: center;
+            color: white;
+        }
+
+        .logo h1 {
+            font-size: 36px;
+        }
+
+        .container {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            width: 100%;
+            max-width: 500px;
+            margin-top: 50px;
+        }
+
+        h2 {
+            font-size: 28px;
+            color: #333;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        p {
+            text-align: center;
+            color: #777;
+            margin-bottom: 20px;
+        }
+
+        .register-form .form-group {
+            margin-bottom: 18px;
+        }
+
+        .register-form label {
+            font-size: 14px;
+            color: #333;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .register-form input,
+        .register-form select,
+        .register-form textarea {
+            width: 100%;
+            padding: 12px;
+            margin-top: 5px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        .register-form input:focus,
+        .register-form select:focus,
+        .register-form textarea:focus {
+            border-color: #4CAF50;
+        }
+
+        .register-form button {
+            width: 100%;
+            padding: 15px;
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: background-color 0.3s;
+        }
+
+        .register-form button:hover {
+            background-color: #45a049;
+        }
+
+        footer {
+            background-color: #4CAF50;
+            padding: 15px;
+            color: white;
+            text-align: center;
+            margin-top: 20px;
+            width: 100%;
+        }
+
+        /* Add a style for error messages */
+        #error-message {
+            color: red;
+            text-align: center;
+            margin-top: 10px;
+        }
+        .terms-container {
+        display: flex;
+        align-items: center;
+        gap: 0; /* Ensures no space between checkbox and text */
+    }
+
+    .terms-container input {
+        margin-right: 0; /* Removes any default margin */
+        width: 16px; /* Ensures proper alignment */
+        margin: 0 3px 2px 0; /* Adds a tiny space (3px) to the right of the checkbox */
+    }
+
+    .terms-container label {
+        margin-left: 0; /* Ensures text sticks to the checkbox */
+        line-height: 16px; /* Matches checkbox size */
+    }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <h1>Travel Buddy</h1>
+        </div>
+    </header>
+
+    <div class="container">
+        <h2>Welcome to Travel Buddy!</h2>
+        <p>Find your perfect travel companion.</p>
+        
+        <form id="registerForm" class="register-form">
+            <div class="form-group">
+                <label for="firstName">First Name</label>
+                <input type="text" id="firstName" name="firstName" required>
+            </div>
+            <div class="form-group">
+                <label for="lastName">Last Name</label>
+                <input type="text" id="lastName" name="lastName" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <div class="form-group">
+                <label for="confirmPassword">Confirm Password</label>
+                <input type="password" id="confirmPassword" name="confirmPassword" required>
+            </div>
+            <div class="form-group">
+                <label for="genderType">Choose Gender</label>
+                <select id="genderType" name="genderType">
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="no">Prefer not to say </option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="bio">Tell us about yourself:</label>
+                <textarea id="bio" name="bio" rows="4" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="dob">Date of Birth</label>
+                <input type="date" id="dob" name="dob" required>
+            </div>
+
+            <div class="form-group">
+                <label for="streetAddress">Street Address</label>
+                <input type="text" id="streetAddress" name="streetAddress" required>
+            </div>
+
+            <div class="form-group">
+                <label for="state">State</label>
+                <input type="text" id="state" name="state" required>
+            </div>
+
+            <div class="form-group">
+                <label for="city">City</label>
+                <input type="text" id="city" name="city" required>
+            </div>
+
+            <div class="form-group">
+                <label for="district">District</label>
+                <input type="text" id="district" name="district" required>
+            </div>
+
+            <div class="form-group">
+                <label for="pinCode">Pin Code</label>
+                <input type="text" id="pinCode" name="pinCode" required>
+            </div>
+
+            <div class="terms-container">
+                <input type="checkbox" id="terms" name="terms" required>
+                <label for="terms">I agree to the <a href="terms.html" target="_blank">Terms and Conditions</a></label>
+            </div>
+
+            <button type="submit" class="submit-btn">Register</button>
+        </form>
+
+        <!-- Error message container -->
+        <div id="error-message"></div>
+
+        <p>Already have an account? <a href="login.html">Login</a></p>
+    </div>
+    
+    <script>
+        document.getElementById('registerForm').addEventListener('submit', async function(e) {
+    e.preventDefault(); // Prevent the default form submission
+
+    const firstName = document.getElementById('firstName').value;
+    const lastName = document.getElementById('lastName').value;
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+    const confirmPassword = document.getElementById('confirmPassword').value;
+    const genderType = document.getElementById('genderType').value; // Fixed variable name
+    const bio = document.getElementById('bio').value;
+    const dob = document.getElementById('dob').value;
+    const streetAddress = document.getElementById('streetAddress').value;
+    const state = document.getElementById('state').value;
+    const city = document.getElementById('city').value;
+    const district = document.getElementById('district').value;
+    const pinCode = document.getElementById('pinCode').value;
+    const terms = document.getElementById('terms').checked; // For checkbox
+
+    // Debugging: Log data before sending
+    console.log("Submitted Data:", {
+        firstName, lastName, email, password, genderType, bio, dob,
+        streetAddress, state, city, district, pinCode, terms
+    });
+
+    // Validate password match
+    if (password !== confirmPassword) {
+        document.getElementById('error-message').textContent = 'Passwords do not match!';
+        return;
+    }
+
+    try {
+        const response = await fetch('http://localhost:3100/api/register', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                firstName, lastName, email, password, genderType, bio, dob,
+                streetAddress, state, city, district, pinCode, terms
+            }),
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to register user');
+        }
+
+        const data = await response.json();
+
+        if (data.message) {
+            alert('Registration Successful');
+            window.location.href = 'dash.html'; // Redirect to dashboard
+        } else {
+            document.getElementById('error-message').textContent = data.message || 'Registration failed. Please try again.';
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        document.getElementById('error-message').textContent = 'Server error. Please try again.';
+    }
+});
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | TravelBuddy</title>
+    <style>
+        /* Full screen background */
+        body {
+            background-image: url("solotravel.jpg"); /* Change this to your preferred background */
+            background-size: cover;
+            background-position: center center;
+            background-attachment: fixed;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Navigation bar */
+        nav {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            padding: 10px 20px; /* ↓ decreased from 20px to 10px top/bottom */
+            background-color: rgba(0, 0, 0, 0.6);
+            color: white;
+            z-index: 1;
+        }
+
+        .nav__logo a {
+            color: white;
+            font-size: 24px;
+            text-decoration: none;
+        }
+
+        .nav__links {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            padding: 0;
+            margin-top: 10px;
+        }
+
+        .nav__links .link a {
+            color: white;
+            font-size: 18px;
+            margin-right: 20px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .nav__links .link a:hover {
+            color: #4CAF50;
+        }
+
+        /* Main content container */
+        .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 100vh;
+            padding: 20px;
+        }
+
+        /* Left side text */
+        .container__left {
+            flex: 1;
+            color: white;
+            padding-right: 20px;
+            max-width: 600px;
+        }
+
+        .container__left h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-align: left;
+        }
+
+        .container__left p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            color: white;
+            text-align: left;
+        }
+
+        /* Right side dashboard panel */
+        .container__right {
+            width: 400px;
+            background-color: rgba(0, 0, 0, 0.7); /* Dark semi-transparent background */
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+
+        .container__right h4 {
+            color: white;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
+            font-size: 18px;
+            text-decoration: none;
+            background-color: #4CAF50;
+            color: white;
+            border-radius: 6px;
+            text-align: center;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #45a049;
+        }
+        .menu-toggle {
+    cursor: pointer;
+    font-size: 24px;
+    color: white;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 50px;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    border-radius: 6px;
+    min-width: 200px;
+    z-index: 999;
+    padding: 10px 0;
+}
+
+.dropdown-menu a {
+    display: block;
+    padding: 12px 20px;
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.dropdown-menu a:hover {
+    background-color: #4CAF50;
+}
+
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+    <div class="nav__container">
+        <div class="nav__logo menu-toggle">TravelBuddy ▼</div>
+        <ul class="nav__links">
+            <li class="link"><a href="dash.html">Home</a></li>
+            <li class="link"><a href="features.html">Features</a></li>
+            <li class="link"><a href="about.html">About Us</a></li>
+            <li class="link"><a href="contact.html">Contact Us</a></li>
+        </ul>
+    </div>
+    <div class="dropdown-menu" id="mainMenu">
+        <a href="profile.html">Profile Info</a>
+        <a href="history.html">Accepted Requests</a>
+        <a href="logout.html">Logout</a>
+
+    </div>
+</nav>
+
+
+    <div class="container">
+        <!-- Left side content -->
+        <div class="container__left">
+            <h1>YOUR ADVENTURE STARTS HERE!</h1>
+            <p>
+                Welcome to your personal travel dashboard! Plan exciting trips, find a travel partner, 
+                and explore the world like never before. TravelBuddy is your ultimate companion in 
+                crafting unforgettable journeys.
+            </p>
+        </div>
+
+        <!-- Right side options -->
+        <div class="container__right">
+            <h4>What would you like to do?</h4>
+            <a href="createplan.html" class="btn">Create Travel Plan</a>
+            <a href="choosepartner.html" class="btn">Choose Travel Partner</a>
+        </div>
+    </div>
+    <script>
+        const toggleButton = document.querySelector('.menu-toggle');
+        const menu = document.getElementById('mainMenu');
+    
+        toggleButton.addEventListener('click', () => {
+            menu.style.display = (menu.style.display === 'block') ? 'none' : 'block';
+        });
+    
+        // Close menu if clicking outside
+        document.addEventListener('click', (e) => {
+            if (!toggleButton.contains(e.target) && !menu.contains(e.target)) {
+                menu.style.display = 'none';
+            }
+        });
+    </script>    
+</body>
+</html>

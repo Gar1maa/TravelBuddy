@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Accepted Requests</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f5f7fa;
+      padding: 40px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 0;
+    }
+
+    h1 {
+      color: #333;
+      font-size: 36px;
+      margin-bottom: 30px;
+    }
+
+    .history-container {
+      width: 100%;
+      max-width: 700px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .record {
+      background-color: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      padding: 25px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .record:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+    }
+
+    .record p {
+      margin: 10px 0;
+      color: #555;
+      font-size: 16px;
+      line-height: 1.4;
+    }
+
+    .record p strong {
+      color: #222;
+    }
+
+    .no-records {
+      color: #888;
+      font-size: 20px;
+      text-align: center;
+      margin-top: 50px;
+    }
+
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 28px;
+      }
+
+      .record p {
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>My Accepted Requests</h1>
+  <div class="history-container" id="history"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async function () {
+            const user = JSON.parse(localStorage.getItem('user'));
+            if (!user) {
+                alert("Please log in first.");
+                window.location.href = "login.html";
+                return;
+            }
+
+            try {
+                const response = await fetch(`http://localhost:3100/api/my-accepted-requests?userId=${user._id}`);
+                const data = await response.json();
+
+                const container = document.getElementById('history');
+                container.innerHTML = '';
+
+                if (data.length === 0) {
+                    container.innerHTML = '<p class="no-records">No accepted requests found.</p>';
+                    return;
+                }
+
+                data.forEach(item => {
+                    const div = document.createElement('div');
+                    div.className = 'record';
+                    div.innerHTML = `
+                    <p><strong>Receiver Email:</strong> ${item.receiverEmail}</p>
+                     <p><strong>Status:</strong> ${item.status}</p>
+                        <p><strong>Destination:</strong> ${item.destination}</p>
+                        <p><strong>Date:</strong> ${new Date(item.date).toLocaleDateString()}</p>
+                        <p><strong>Created By:</strong> ${item.createdByUsername}</p>
+                    `;
+                    container.appendChild(div);
+                });
+            } catch (error) {
+                console.error("Error fetching accepted requests:", error);
+                document.getElementById('history').innerHTML = '<p class="no-records">Something went wrong while loading your history.</p>';
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Buddy | Find Your Trip</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background: url('fea.jpeg') no-repeat center center/cover;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .container {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 500px;
+            text-align: center;
+        }
+        
+        h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+        
+        label {
+            font-weight: bold;
+            color: #333;
+        }
+        
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            font-size: 18px;
+            color: white;
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        
+        .btn:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Where you want to go?</h2>
+        <form id="travelPlanForm">
+            <div class="form-group">
+                <label for="destination">Destination</label>
+                <input type="text" id="destination" name="destination" required>
+            </div>
+            <div class="form-group">
+                <label for="startDate">Start Date</label>
+                <input type="date" id="startDate" name="startDate" required>
+            </div>
+            <div class="form-group">
+                <label for="endDate">End Date</label>
+                <input type="date" id="endDate" name="endDate" required>
+            </div>
+            <button type="submit" class="btn">Search Travel Partner</button>
+        </form>
+    </div>
+
+    <script>
+       document.getElementById('travelPlanForm').addEventListener('submit', async function(event) {
+    event.preventDefault();
+    
+    const formData = {
+        destination: document.getElementById('destination').value.trim(),
+        startDate: document.getElementById('startDate').value,
+        endDate: document.getElementById('endDate').value
+    };
+
+    console.log("🔍 Sending travel partner request:", formData); // ✅ Debugging log
+
+    try {
+        const response = await fetch('http://localhost:3100/api/travel', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(formData)
+        });
+
+        console.log("📩 Raw Response:", response); // ✅ Debugging log
+
+        if (!response.ok) {
+            throw new Error(`Server error: ${response.status}`);
+        }
+
+        const result = await response.json();
+        console.log("📩 Response received:", result); // ✅ Debugging log
+
+        if (result.success) {
+            localStorage.setItem('partnerDetails', JSON.stringify(result.partnerDetails));
+            alert("✅ Travel partner found!");
+            window.location.href = 'partnerdetails.html';
+        } else {
+            alert("❌ " + result.message);
+        }
+    } catch (error) {
+        console.error("❌ Error:", error);
+        alert("❌Travel partner does not exists.");
+    }
+});
+
+    </script>
+</body>
+</html>
