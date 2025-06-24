@@ -1,4 +1,4 @@
-# 🌍 TravelBuddy
+#  TravelBuddy
 
 **TravelBuddy** is a feature-rich travel companion web application designed to help users find matching travel partners, manage personalized travel plans, and chat in real-time — all from a single platform.
 
@@ -6,30 +6,30 @@ It combines a responsive front-end interface with a real-time Node.js backend an
 
 ---
 
-## 🚀 Features
+##  Features
 
-- **🔐 User Authentication** — Secure registration and login with JWT-based sessions
-- **🧳 Create Travel Plans** — Add destination, dates, and duration
-- **📜 Travel History** — View past travel plans sorted by creation date
-- **🤝 Partner Matching** — Match with users based on overlapping travel details
-- **📤 Manage Requests** — Send, cancel, accept, and reject travel requests
-- **🖼️ Profile Uploads** — Upload/delete profile images (Multer-based)
-- **💬 Live Chat** — Real-time messaging via Socket.IO
-- **🕒 Chat History** — MongoDB-stored messages with timestamps & soft deletion
-- **🔔 Live Notifications** — Real-time updates for request events
-- **🧩 RESTful APIs** — Modular, scalable backend endpoints
-- **🗄️ MongoDB Integration** — Mongoose models for Users, Chats, Requests & Plans
+- ** User Authentication** — Secure registration and login with JWT-based sessions
+- ** Create Travel Plans** — Add destination, dates, and duration
+- ** Travel History** — View past travel plans sorted by creation date
+- ** Partner Matching** — Match with users based on overlapping travel details
+- ** Manage Requests** — Send, cancel, accept, and reject travel requests
+- ** Profile Uploads** — Upload/delete profile images (Multer-based)
+- ** Live Chat** — Real-time messaging via Socket.IO
+- ** Chat History** — MongoDB-stored messages with timestamps & soft deletion
+- ** Live Notifications** — Real-time updates for request events
+- ** RESTful APIs** — Modular, scalable backend endpoints
+- ** MongoDB Integration** — Mongoose models for Users, Chats, Requests & Plans
 
 ---
 
-## 🛠️ Tech Stack
+## 🛠 Tech Stack
 
-### 🌐 Frontend
+###  Frontend
 - HTML5, CSS3, JavaScript
 - Responsive UI using Flexbox
 - Socket.IO (Client)
 
-### 🧠 Backend
+###  Backend
 - Node.js with Express.js
 - RESTful API structure
 - JWT for auth
@@ -56,20 +56,20 @@ Make sure you have the following installed:
 
 ---
 
-## 🧪 Testing Workflow
+## Testing Workflow
 
-1. 🔐 **Register** via `register.html`
-2. 👤 **Log in & update profile** via `profile.html`
-3. 🗓️ **Plan your trip** via `choosepartner.html`
-4. 🔍 **Find a match** via `partnerdetails.html`
-5. 🤝 **Send & manage requests** via `requests.html`
-6. 💬 **Chat live** via `chat.html`
-7. 🕘 **View travel history** via `history.html`
-8. 🚪 **Logout** via `logout.html`
+1.  **Register** via `register.html`
+2.  **Log in & update profile** via `profile.html`
+3.  **Plan your trip** via `choosepartner.html`
+4.  **Find a match** via `partnerdetails.html`
+5.  **Send & manage requests** via `requests.html`
+6.  **Chat live** via `chat.html`
+7.  **View travel history** via `history.html`
+8.  **Logout** via `logout.html`
 
 ---
 
-## 📂 Project Structure
+##  Project Structure
 
 ```bash
 TravelBuddy/
@@ -117,6 +117,6 @@ TravelBuddy was built to make travel more social, personalized, and enjoyable. F
 
  Connect
  Developer: Garima
- Project Link: 
+ Project Link: https://github.com/Gar1maa/TravelBuddy
 
 
